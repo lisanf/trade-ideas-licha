@@ -107,6 +107,16 @@ nav {
   opacity: 0;
   transform: translateY(16px);
   animation: fadeUp 0.7s 0.15s cubic-bezier(0.4,0,0.2,1) forwards;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.loc-icon {
+  width: 10px;
+  height: 13px;
+  flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .hero-headline {
@@ -281,8 +291,6 @@ nav {
 
 .idea-card:hover                   { background: var(--cream); box-shadow: 0 8px 40px rgba(26,25,23,0.05); }
 .idea-card:hover::before           { background: var(--orange); }
-.idea-card.expanded::before        { background: var(--orange); }
-.idea-card.expanded                { background: var(--cream); }
 
 .card-top {
   display: flex;
@@ -376,6 +384,7 @@ nav {
   border: none;
   cursor: pointer;
   padding: 0;
+  text-decoration: none;
   transition: color 0.2s;
 }
 .expand-btn:hover { color: var(--orange); }
@@ -395,12 +404,7 @@ nav {
 }
 .idea-card.expanded .exp-icon { transform: rotate(45deg); }
 
-.card-expand-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.58s cubic-bezier(0.4,0,0.2,1);
-}
-.idea-card.expanded .card-expand-body { max-height: 900px; }
+/* card-expand-body: moved to idea detail pages */
 
 .expand-inner {
   padding-top: 28px;
