@@ -9,7 +9,7 @@ const TRADES = [
   {
     id: "ewz-straddle-2026",
     ticker: "EWZ · NYSE",
-    direction: "Straddle",
+    direction: "LONG VOL.",
     name: "iShares MSCI Brazil",
     sector: "EM Equities · Brazil",
     updated: "Mar 2025",
