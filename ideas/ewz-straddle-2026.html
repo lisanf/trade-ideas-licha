@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>EWZ Straddle · Lisandro F.</title>
+  <title>EWZ · Long Volatility · Lisandro F.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../css/style.css">
@@ -32,11 +32,12 @@
     <header class="idea-header">
       <div class="idea-meta-row">
         <span class="card-ticker">EWZ · NYSE</span>
-        <span class="card-dir vol">Straddle</span>
+        <span class="card-dir vol">Long Volatility</span>
+        <span class="card-dir neutral idea-status">Active</span>
       </div>
-      <h1 class="idea-title">iShares MSCI Brazil</h1>
+      <h1 class="idea-title">Brazil Election<br>Vol Play</h1>
       <div class="idea-sub-row">
-        <span class="card-sector">EM Equities · Brazil</span>
+        <span class="card-sector">EM Equities · Brazil · Options</span>
         <span class="idea-updated">
           <span class="meta-lbl">Updated</span>
           <span class="meta-val">Mar 2025</span>
@@ -44,58 +45,346 @@
       </div>
     </header>
 
-    <!-- SUMMARY -->
+    <!-- ONE-LINE THESIS -->
     <section class="idea-section idea-summary">
       <p class="idea-lead">
-        A volatility play on Brazil's 2026 presidential election.
-        Not calling up or down — just that EWZ will move more than the market currently prices in.
-        Max loss is the premium paid.
+        Trade the path, not the direction. If Brazil politics drives
+        larger-than-expected moves — or implied vol ramps into the vote — volatility buyers get paid.
       </p>
     </section>
 
     <div class="idea-divider"></div>
 
-    <!-- THE SETUP -->
+    <!-- CONTEXT -->
     <section class="idea-section">
-      <div class="ex-label">The Setup</div>
+      <div class="ex-label">The Context</div>
       <p class="idea-body">
-        Brazil's 2026 presidential election sets up a textbook volatility event.
-        EWZ is the most liquid proxy for Brazilian equities and has historically moved 10–18%
-        around major political inflection points. The structure is a straddle — buying both
-        a call and a put at the same strike — which profits from a large move in either direction,
-        or from implied volatility being bid up as the election approaches.
-        No directional view required.
+        If you have ever traded EM around a political event, you know the rhythm: weeks of quiet,
+        then a single poll headline and everything gaps at once.
+        Brazil's 2026 presidential election is scheduled for October 4,
+        with a potential runoff on October 25 if no candidate clears 50% outright.
+        Recent polling points to a tight runoff scenario — exactly the kind of setup
+        that tends to keep volatility bid for longer than the market expects.
       </p>
       <p class="idea-body">
-        I am not calling Lula vs. the opposition. I am saying the market is underpricing
-        how much noise a polarized field generates into October.
+        This is not a call on EWZ up or down. It is a bet that the options market
+        is underpricing how much noise a polarized political field generates
+        in the months leading into October. The underlying can go anywhere —
+        the trade just needs it to <em>move</em>.
       </p>
     </section>
 
-    <!-- STRUCTURE & CATALYSTS -->
+    <!-- KEY NUMBERS STRIP -->
     <section class="idea-section">
-      <div class="ex-label">Structure &amp; Catalysts</div>
-      <ul class="idea-list">
-        <li>Shorter-dated leg targets the first-round shock on October 4, the moment markets absorb who advances.</li>
-        <li>Longer-dated leg captures the runoff, potential policy pivot signals, and the noise that follows a result.</li>
-        <li>If IV spikes in the weeks before the vote, the position can be sold at a premium before the event itself.</li>
-        <li>A polarized field means binary outcomes on fiscal policy, commodities orientation, and BRL — all EWZ movers.</li>
-      </ul>
-    </section>
-
-    <!-- RISK -->
-    <section class="idea-section">
-      <div class="ex-label">Risk Considerations</div>
-      <ul class="idea-list">
-        <li>Max loss is fully defined: the total premium paid. No open-ended downside.</li>
-        <li>If EWZ trades sideways into expiry without a vol spike, both legs decay.</li>
-        <li>Timing matters — entering too early bleeds premium; entering too late may mean IV is already elevated.</li>
-      </ul>
+      <div class="ex-label">Snapshot</div>
+      <div class="data-strip">
+        <div class="data-card">
+          <span class="data-lbl">EWZ Spot</span>
+          <span class="data-val">35.49</span>
+          <span class="data-sub">USD</span>
+        </div>
+        <div class="data-card">
+          <span class="data-lbl">Strike</span>
+          <span class="data-val">35.00</span>
+          <span class="data-sub">ATM</span>
+        </div>
+        <div class="data-card data-card--orange">
+          <span class="data-lbl">Oct Premium</span>
+          <span class="data-val">7.91</span>
+          <span class="data-sub">22.3% of spot</span>
+        </div>
+        <div class="data-card data-card--teal">
+          <span class="data-lbl">Nov Premium</span>
+          <span class="data-val">9.28</span>
+          <span class="data-sub">26.1% of spot</span>
+        </div>
+      </div>
     </section>
 
     <div class="idea-divider"></div>
 
-    <p class="idea-disclaimer">Not financial advice. This is a personal note on a trade I am thinking about.</p>
+    <!-- IMPLEMENTATION -->
+    <section class="idea-section">
+      <div class="ex-label">Implementation</div>
+      <p class="idea-body">
+        The cleanest institutional expression of a long-volatility view like this is a
+        <strong>variance swap</strong> — an OTC derivative that settles on realized variance
+        versus a fixed strike, with no upfront premium (though margin/collateral applies).
+        If you have ISDA documentation, that is typically where this conversation starts.
+      </p>
+      <p class="idea-body">
+        For a transparent, accessible example anyone can follow, the vehicle here is a
+        <strong>straddle</strong> — buying a call and a put at the same strike simultaneously.
+        The straddle is not the idea. It is just a visible, liquid tool to express the same view:
+        long volatility, no directional bias.
+      </p>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- TWO WINDOWS -->
+    <section class="idea-section">
+      <div class="ex-label">Two Windows, Same Idea</div>
+      <p class="idea-body">
+        The election structure gives two natural expiry windows.
+        Neither is "better" — they answer different questions.
+      </p>
+
+      <div class="window-grid">
+
+        <!-- WINDOW A -->
+        <div class="window-card">
+          <div class="window-header">
+            <span class="window-label">Window A</span>
+            <span class="window-expiry">Oct Expiry</span>
+          </div>
+          <div class="window-title">First-round shock</div>
+          <p class="window-desc">Captures the immediate market reaction to who gets through to the runoff. Cheaper, purer event.</p>
+          <div class="window-legs">
+            <div class="leg-row">
+              <span class="leg-name">Call (35 strike)</span>
+              <span class="leg-val">4.56</span>
+            </div>
+            <div class="leg-row">
+              <span class="leg-name">Put (35 strike)</span>
+              <span class="leg-val">3.35</span>
+            </div>
+            <div class="leg-row leg-total">
+              <span class="leg-name">Total Premium</span>
+              <span class="leg-val">7.91</span>
+            </div>
+          </div>
+          <div class="be-row">
+            <div class="be-item">
+              <span class="be-lbl">Lower BE</span>
+              <span class="be-val">27.09</span>
+            </div>
+            <div class="be-divider"></div>
+            <div class="be-item">
+              <span class="be-lbl">Upper BE</span>
+              <span class="be-val">42.91</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- WINDOW B -->
+        <div class="window-card window-card--b">
+          <div class="window-header">
+            <span class="window-label">Window B</span>
+            <span class="window-expiry">Nov Expiry</span>
+          </div>
+          <div class="window-title">Runoff + aftermath</div>
+          <p class="window-desc">Adds the runoff (Oct 25) and the post-election policy uncertainty. More time, higher cost.</p>
+          <div class="window-legs">
+            <div class="leg-row">
+              <span class="leg-name">Call (35 strike)</span>
+              <span class="leg-val">6.02</span>
+            </div>
+            <div class="leg-row">
+              <span class="leg-name">Put (35 strike)</span>
+              <span class="leg-val">3.26</span>
+            </div>
+            <div class="leg-row leg-total">
+              <span class="leg-name">Total Premium</span>
+              <span class="leg-val">9.28</span>
+            </div>
+          </div>
+          <div class="be-row">
+            <div class="be-item">
+              <span class="be-lbl">Lower BE</span>
+              <span class="be-val">25.72</span>
+            </div>
+            <div class="be-divider"></div>
+            <div class="be-item">
+              <span class="be-lbl">Upper BE</span>
+              <span class="be-val">44.28</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- PAYOFF CHART -->
+    <section class="idea-section">
+      <div class="ex-label">Payoff at Expiry</div>
+      <p class="idea-body">
+        P&L per share = |EWZ − 35| − premium. The V-shape is the straddle's
+        defining feature: profit on large moves in either direction, loss if the
+        underlying stays close to the strike.
+      </p>
+      <div class="chart-wrap">
+        <canvas id="payoffChart"></canvas>
+      </div>
+      <p class="chart-note">
+        Dashed lines mark break-even levels. Chart shows expiry P&L only —
+        pre-expiry paths will look different depending on time remaining and IV.
+      </p>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- PAYOFF TABLE -->
+    <section class="idea-section">
+      <div class="ex-label">P&L Reference Table</div>
+      <p class="idea-body" style="margin-bottom: 24px;">Per share, at expiry.</p>
+      <div class="pnl-table-wrap">
+        <table class="pnl-table">
+          <thead>
+            <tr>
+              <th>EWZ at Expiry</th>
+              <th>Oct Straddle</th>
+              <th>Nov Straddle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="positive"><td>20.00</td><td>+7.09</td><td>+5.72</td></tr>
+            <tr class="positive"><td>25.00</td><td>+2.09</td><td>+0.72</td></tr>
+            <tr class="negative"><td>28.00</td><td>−0.91</td><td>−2.28</td></tr>
+            <tr class="negative"><td>30.00</td><td>−2.91</td><td>−4.28</td></tr>
+            <tr class="negative highlight"><td>35.00 ← strike</td><td>−7.91</td><td>−9.28</td></tr>
+            <tr class="negative"><td>40.00</td><td>−2.91</td><td>−4.28</td></tr>
+            <tr class="breakeven"><td>42.91 / 43.00</td><td>~0</td><td>−1.28</td></tr>
+            <tr class="positive"><td>45.00</td><td>+2.09</td><td>+0.72</td></tr>
+            <tr class="positive"><td>50.00</td><td>+7.09</td><td>+5.72</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- HOW YOU GET PAID -->
+    <section class="idea-section">
+      <div class="ex-label">How the Trade Makes Money</div>
+      <div class="payout-grid">
+        <div class="payout-card">
+          <div class="payout-num">01</div>
+          <div class="payout-title">The big move</div>
+          <p class="payout-body">EWZ breaks hard in either direction — a tail outcome. The winning leg grows faster than the losing leg decays. Classic straddle payoff.</p>
+        </div>
+        <div class="payout-card">
+          <div class="payout-num">02</div>
+          <div class="payout-title">The IV ramp</div>
+          <p class="payout-body">Often the more realistic path. Implied vol gets bid up into the election as market participants pay for hedges. You sell before expiry at a higher premium than you paid.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- ELECTION HISTORY -->
+    <section class="idea-section">
+      <div class="ex-label">Brazil Elections — October Pattern</div>
+      <p class="idea-body">
+        Brazil's presidential elections have consistently landed in early October
+        since the constitution was adopted, with a runoff three to four weeks later
+        when no candidate wins an outright majority. That rhythm is structural, not coincidental —
+        and it is why the November expiry exists as a trade.
+      </p>
+
+      <div class="history-table-wrap">
+        <table class="history-table">
+          <thead>
+            <tr>
+              <th>Year</th>
+              <th>Round 1</th>
+              <th>Runoff</th>
+              <th>Days Between</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>2014</td>
+              <td>Oct 5</td>
+              <td>Oct 26</td>
+              <td>21</td>
+              <td><div class="bar-cell"><div class="bar-fill" style="width:75%"></div></div></td>
+            </tr>
+            <tr>
+              <td>2018</td>
+              <td>Oct 7</td>
+              <td>Oct 28</td>
+              <td>21</td>
+              <td><div class="bar-cell"><div class="bar-fill" style="width:75%"></div></div></td>
+            </tr>
+            <tr>
+              <td>2022</td>
+              <td>Oct 2</td>
+              <td>Oct 30</td>
+              <td>28</td>
+              <td><div class="bar-cell"><div class="bar-fill" style="width:100%"></div></div></td>
+            </tr>
+            <tr class="history-highlight">
+              <td>2026 <span class="upcoming-tag">upcoming</span></td>
+              <td>Oct 4</td>
+              <td>Oct 25</td>
+              <td>21</td>
+              <td><div class="bar-cell"><div class="bar-fill bar-fill--orange" style="width:75%"></div></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="idea-body" style="margin-top: 18px;">
+        2022 was the anomaly — 28 days between rounds, one of the closest elections
+        in Brazilian history, with EWZ swinging through the entire period.
+        That is the kind of realized move this trade is anticipating a repeat of.
+      </p>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- RISKS -->
+    <section class="idea-section">
+      <div class="ex-label">What You Tell a PM</div>
+      <p class="idea-body">
+        This is expensive volatility. The options market is effectively charging 22–26%
+        for the move — that is what the break-even range implies if you hold to expiry.
+        That is a high hurdle, and it is worth saying clearly.
+      </p>
+      <ul class="idea-list">
+        <li><strong>Vol crush:</strong> if the first-round result is clean and decisive, implied volatility can collapse immediately. The event resolves, the bid for optionality disappears, and you are left holding expensive paper.</li>
+        <li><strong>Execution:</strong> "last" prices are not tradable in size. Bid/ask spreads on EWZ options widen on lower-liquidity strikes. The numbers here are indicative — real entry cost is higher.</li>
+        <li><strong>Carry:</strong> the Nov expiry costs more, and every day without a vol move is a day of theta decay working against you.</li>
+        <li><strong>This is not a hedge fund:</strong> a variance swap would be cleaner, cheaper in spread terms, and have better convexity. The straddle is the retail-accessible version of the same view.</li>
+      </ul>
+    </section>
+
+    <!-- GAME PLAN -->
+    <section class="idea-section">
+      <div class="ex-label">The Game Plan</div>
+      <div class="gameplan-grid">
+        <div class="gameplan-item">
+          <span class="gameplan-marker marker-orange">A</span>
+          <div>
+            <div class="gameplan-title">First-round focus</div>
+            <p class="gameplan-body">Oct expiry. Cheaper entry, cleaner event exposure. Preferred if the goal is to trade the initial shock and not overpay for extra time.</p>
+          </div>
+        </div>
+        <div class="gameplan-item">
+          <span class="gameplan-marker marker-teal">B</span>
+          <div>
+            <div class="gameplan-title">Full cycle</div>
+            <p class="gameplan-body">Nov expiry. Pays for the runoff and the post-election noise. Preferred if the view is that the market will take more than one round to price the outcome correctly.</p>
+          </div>
+        </div>
+        <div class="gameplan-item">
+          <span class="gameplan-marker marker-blue">C</span>
+          <div>
+            <div class="gameplan-title">IV ramp exit</div>
+            <p class="gameplan-body">Neither expiry requires holding to expiry. If implied vol spikes into the election and the market starts paying up for uncertainty, selling the position at a higher premium is the cleaner outcome than waiting for a binary result.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <p class="idea-disclaimer">Not financial advice. These are personal notes on a trade I find interesting. Prices and data are indicative and dated. Do your own work.</p>
 
   </main>
 
@@ -104,6 +393,136 @@
     <span class="footer-txt">Licha · 2025</span>
     <span class="footer-txt">Ideas, not advice.</span>
   </footer>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    // ── Payoff Chart ─────────────────────────────
+    const ewzPrices = [18, 20, 22, 24, 25, 26, 27, 27.09, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 42.91, 43, 44, 44.28, 45, 46, 47, 48, 50, 52];
+
+    const octPnl  = ewzPrices.map(p => +(Math.abs(p - 35) - 7.91).toFixed(2));
+    const novPnl  = ewzPrices.map(p => +(Math.abs(p - 35) - 9.28).toFixed(2));
+
+    const ctx = document.getElementById('payoffChart').getContext('2d');
+
+    Chart.defaults.font.family = "'JetBrains Mono', monospace";
+    Chart.defaults.color = '#7B7264';
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ewzPrices,
+        datasets: [
+          {
+            label: 'Oct Expiry',
+            data: octPnl,
+            borderColor: '#D8682A',
+            backgroundColor: 'rgba(216,104,42,0.06)',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            fill: false,
+            tension: 0
+          },
+          {
+            label: 'Nov Expiry',
+            data: novPnl,
+            borderColor: '#2A7A6E',
+            backgroundColor: 'rgba(42,122,110,0.06)',
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            fill: false,
+            tension: 0,
+            borderDash: [5, 3]
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: true,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: {
+            display: true,
+            position: 'top',
+            align: 'start',
+            labels: {
+              font: { family: "'JetBrains Mono', monospace", size: 10 },
+              color: '#7B7264',
+              boxWidth: 20,
+              padding: 20
+            }
+          },
+          tooltip: {
+            backgroundColor: '#FDFBF6',
+            borderColor: '#D2CCBB',
+            borderWidth: 1,
+            titleColor: '#1A1917',
+            bodyColor: '#7B7264',
+            padding: 12,
+            callbacks: {
+              title: (items) => `EWZ: $${items[0].label}`,
+              label: (item) => {
+                const val = item.raw;
+                const sign = val >= 0 ? '+' : '';
+                return ` ${item.dataset.label}: ${sign}${val.toFixed(2)}`;
+              }
+            }
+          },
+          annotation: {}
+        },
+        scales: {
+          x: {
+            title: {
+              display: true,
+              text: 'EWZ Price at Expiry (USD)',
+              font: { family: "'JetBrains Mono', monospace", size: 9 },
+              color: '#7B7264',
+              padding: { top: 10 }
+            },
+            grid: { color: 'rgba(210,204,187,0.4)', drawTicks: false },
+            ticks: {
+              font: { family: "'JetBrains Mono', monospace", size: 9 },
+              maxTicksLimit: 10,
+              padding: 8
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'P&L per share (USD)',
+              font: { family: "'JetBrains Mono', monospace", size: 9 },
+              color: '#7B7264'
+            },
+            grid: { color: 'rgba(210,204,187,0.4)', drawTicks: false },
+            ticks: {
+              font: { family: "'JetBrains Mono', monospace", size: 9 },
+              padding: 8,
+              callback: v => (v >= 0 ? '+' : '') + v.toFixed(2)
+            },
+            // zero-line emphasis via custom plugin below
+          }
+        }
+      },
+      plugins: [{
+        id: 'zeroline',
+        afterDraw(chart) {
+          const { ctx, scales: { y, x } } = chart;
+          const yZero = y.getPixelForValue(0);
+          ctx.save();
+          ctx.strokeStyle = 'rgba(210,204,187,0.9)';
+          ctx.lineWidth = 1.5;
+          ctx.setLineDash([]);
+          ctx.beginPath();
+          ctx.moveTo(x.left, yZero);
+          ctx.lineTo(x.right, yZero);
+          ctx.stroke();
+          ctx.restore();
+        }
+      }]
+    });
+  </script>
 
 </body>
 </html>
