@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>EWZ Long Vol · Brazil 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg:       #F5F5F0;
+      --surface:  #FFFFFF;
+      --border:   #E0E0D8;
+      --muted:    #AEAEAD;
+      --ink:      #111110;
+      --ink-soft: #444440;
+      --lime:     #C9FA46;
+      --lime-dim: #E6FDAF;
+      --red:      #FF4545;
+      --mono: 'IBM Plex Mono', monospace;
+      --serif: 'Fraunces', Georgia, serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── SCROLLBAR ─────────────────────────────── */
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--lime); border-radius: 2px; }
+
+    /* ─── NAV ───────────────────────────────────── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245,245,240,0.88);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 5vw;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 52px;
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .nav-ticker {
+      font-family: var(--mono);
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--ink);
+    }
+
+    .nav-pill {
+      background: var(--lime);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      padding: 3px 9px;
+      border-radius: 20px;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+
+    .nav-link {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--ink-soft);
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .nav-link:hover { color: var(--ink); }
+
+    /* ─── HERO ──────────────────────────────────── */
+    .hero {
+      padding: 100px 5vw 80px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: 'EWZ';
+      position: absolute;
+      right: -2vw;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--serif);
+      font-size: clamp(120px, 22vw, 320px);
+      font-weight: 900;
+      color: transparent;
+      -webkit-text-stroke: 1px var(--border);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .hero-label {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(42px, 6vw, 88px);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-soft);
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--ink-soft);
+      max-width: 420px;
+      line-height: 1.8;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .meta-block {
+      border-left: 2px solid var(--lime);
+      padding-left: 16px;
+    }
+
+    .meta-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .meta-value {
+      font-family: var(--mono);
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .meta-note {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+
+    /* ─── SECTION WRAPPER ───────────────────────── */
+    .section {
+      padding: 72px 5vw;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .section-num {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    /* ─── THESIS ────────────────────────────────── */
+    .thesis-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .thesis-cell {
+      background: var(--surface);
+      padding: 32px 28px;
+    }
+
+    .thesis-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--lime);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    .thesis-head {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .thesis-body {
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.8;
+    }
+
+    /* ─── TRADE CARDS ───────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .trade-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 36px 32px;
+      position: relative;
+      overflow: hidden;
+      transition: box-shadow 0.3s, transform 0.3s;
+    }
+    .trade-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+
+    .card-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--lime);
+      padding: 4px 10px;
+      border-radius: 2px;
+      margin-bottom: 24px;
+    }
+
+    .card-tag.secondary {
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 28px;
+    }
+
+    .card-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    .card-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .card-table tr { border-bottom: 1px solid var(--border); }
+    .card-table tr:last-child { border-bottom: none; }
+    .card-table td {
+      padding: 10px 0;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+    .card-table td:first-child { color: var(--muted); }
+    .card-table td:last-child {
+      text-align: right;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .card-be {
+      margin-top: 24px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .be-block {
+      flex: 1;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 12px 14px;
+      text-align: center;
+    }
+
+    .be-label {
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 5px;
+    }
+
+    .be-value {
+      font-family: var(--mono);
+      font-size: 18px;
+      font-weight: 500;
+    }
+
+    .be-value.down { color: var(--red); }
+    .be-value.up { color: #1A9E52; }
+
+    .card-accent {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: var(--lime-dim);
+      border-radius: 50%;
+      transform: translate(40%, 40%);
+      pointer-events: none;
+    }
+
+    /* ─── PAYOFF CHART ──────────────────────────── */
+    .chart-wrapper {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 40px 40px 32px;
+    }
+
+    .chart-controls {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+
+    .chart-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 7px 18px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--ink-soft);
+    }
+
+    .chart-btn.active,
+    .chart-btn:hover {
+      background: var(--lime);
+      border-color: var(--lime);
+      color: var(--ink);
+    }
+
+    canvas#payoffChart {
+      width: 100%;
+      max-height: 340px;
+      display: block;
+    }
+
+    .chart-legend {
+      display: flex;
+      gap: 28px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--ink-soft);
+    }
+
+    .legend-dot {
+      width: 24px;
+      height: 3px;
+      border-radius: 2px;
+    }
+
+    /* ─── COMPARISON TABLE ──────────────────────── */
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .compare-table th {
+      padding: 16px 20px;
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--ink);
+      text-align: left;
+      background: var(--surface);
+    }
+
+    .compare-table th:first-child { background: var(--bg); }
+    .compare-table th:nth-child(2) { background: var(--lime); color: var(--ink); }
+    .compare-table th:nth-child(3) { background: var(--bg); }
+
+    .compare-table td {
+      padding: 14px 20px;
+      font-size: 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-table td:first-child { color: var(--muted); }
+    .compare-table td:nth-child(2) { font-weight: 500; background: rgba(201,250,70,0.07); }
+
+    /* ─── RISKS ─────────────────────────────────── */
+    .risks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .risk-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--ink);
+      padding: 24px 24px 24px 22px;
+    }
+
+    .risk-item.warn { border-left-color: var(--red); }
+
+    .risk-head {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .risk-body {
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.75;
+    }
+
+    /* ─── PITCH ──────────────────────────────────── */
+    .pitch-block {
+      background: var(--ink);
+      color: var(--bg);
+      padding: 56px 5vw;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 48px;
+      align-items: start;
+    }
+
+    .pitch-tag {
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--lime);
+      white-space: nowrap;
+      margin-top: 6px;
+    }
+
+    .pitch-quote {
+      font-family: var(--serif);
+      font-size: clamp(20px, 2.4vw, 32px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.5;
+      color: var(--bg);
+    }
+
+    .pitch-quote strong {
+      font-weight: 700;
+      font-style: normal;
+      color: var(--lime);
+    }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      padding: 24px 5vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-note {
+      font-size: 11px;
+      color: var(--muted);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .footer-date {
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* ─── TICKER TAPE ────────────────────────────── */
+    .ticker-tape {
+      background: var(--ink);
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 10px 0;
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .ticker-inner {
+      display: inline-block;
+      animation: ticker 28s linear infinite;
+    }
+
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding-top: 60px; }
+      .hero::before { display: none; }
+      .hero-meta { flex-direction: row; flex-wrap: wrap; gap: 16px; }
+      .thesis-grid { grid-template-columns: 1fr; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .risks-grid { grid-template-columns: 1fr; }
+      .pitch-block { grid-template-columns: 1fr; gap: 12px; }
+      .pitch-tag { margin-top: 0; }
+      .nav-right { display: none; }
+      .compare-table { font-size: 11px; }
+      .compare-table td, .compare-table th { padding: 10px 12px; }
+    }
+    /* ─── VARIANCE SWAP ──────────────────────────── */
+    .varsw-wrap {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .varsw-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 10px 28px;
+    }
+
+    .varsw-badge-icon { font-size: 14px; }
+
+    .varsw-body {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 0;
+    }
+
+    .varsw-left {
+      padding: 40px 36px;
+      border-right: 1px solid var(--border);
+    }
+
+    .varsw-headline {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+
+    .varsw-headline em {
+      font-style: italic;
+      font-weight: 300;
+      color: var(--ink-soft);
+    }
+
+    .varsw-desc {
+      font-size: 12px;
+      color: var(--ink-soft);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+
+    .varsw-right {
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      justify-content: center;
+    }
+
+    .varsw-formula-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 24px 22px;
+    }
+
+    .varsw-formula-label {
+      font-size: 9px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+    }
+
+    .varsw-formula {
+      font-family: var(--serif);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .varsw-formula sub {
+      font-size: 11px;
+      font-family: var(--mono);
+      font-weight: 400;
+    }
+
+    .varsw-times { color: var(--muted); margin: 0 4px; }
+    .varsw-minus { color: var(--red); margin: 0 4px; }
+
+    .varsw-formula-sub {
+      margin-top: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .varsw-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .varsw-pill {
+      font-family: var(--mono);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      padding: 5px 12px;
+      background: var(--lime-dim);
+      border: 1px solid var(--lime);
+      color: var(--ink);
+      border-radius: 2px;
+    }
+
+    .varsw-pill-warn {
+      background: #FFF0F0;
+      border-color: var(--red);
+      color: var(--red);
+    }
+
+    @media (max-width: 900px) {
+      .varsw-body { grid-template-columns: 1fr; }
+      .varsw-left { border-right: none; border-bottom: 1px solid var(--border); padding: 28px 20px; }
+      .varsw-right { padding: 28px 20px; }
+    }
+
+    /* ─── MASTHEAD ───────────────────────────────── */
+    .masthead {
+      background: var(--ink);
+      padding: 0 5vw;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--lime);
+    }
+
+    .masthead-title {
+      font-family: var(--serif);
+      font-size: 17px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      color: var(--surface);
+    }
+
+    .masthead-title span {
+      color: var(--lime);
+    }
+
+    .masthead-right {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    /* ─── TRADE IDEAS INDEX ──────────────────────── */
+    .ideas-strip {
+      padding: 40px 5vw 36px;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .ideas-label {
+      font-size: 9px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .ideas-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 12px;
+    }
+
+    .idea-card {
+      border: 1px solid var(--border);
+      padding: 18px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: var(--bg);
+      position: relative;
+      transition: box-shadow 0.2s;
+      cursor: default;
+    }
+
+    .idea-card.active {
+      background: var(--surface);
+      border-color: var(--ink);
+      cursor: pointer;
+    }
+
+    .idea-card.active:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+    }
+
+    .idea-card.dimmed {
+      opacity: 0.42;
+      pointer-events: none;
+    }
+
+    .idea-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .idea-ticker {
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+    }
+
+    .idea-pill-new {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: var(--lime);
+      color: var(--ink);
+      padding: 2px 8px;
+      border-radius: 20px;
+      animation: pulse-pill 2.4s ease-in-out infinite;
+    }
+
+    @keyframes pulse-pill {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.55; }
+    }
+
+    .idea-pill-soon {
+      font-family: var(--mono);
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 2px 8px;
+      border-radius: 20px;
+    }
+
+    .idea-name {
+      font-family: var(--serif);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.25;
+    }
+
+    .idea-meta {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+    }
+
+    .idea-structure {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-soft);
+      border-top: 1px solid var(--border);
+      padding-top: 8px;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 900px) {
+      .ideas-grid { grid-template-columns: 1fr; }
+      .masthead-right { display: none; }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-title">Licha<span>.</span> Trade Ideas</div>
+  <div class="masthead-right">Internal Research · Not for Distribution</div>
+</header>
+
+<!-- TICKER TAPE -->
+<div class="ticker-tape">
+  <span class="ticker-inner">
+    &nbsp;&nbsp;&nbsp;&nbsp;EWZ SPOT 35.49&nbsp;&nbsp;●&nbsp;&nbsp;OCT 35 STRADDLE 7.91&nbsp;&nbsp;●&nbsp;&nbsp;NOV 35 STRADDLE 9.28&nbsp;&nbsp;●&nbsp;&nbsp;1ST ROUND OCT 4 2026&nbsp;&nbsp;●&nbsp;&nbsp;RUNOFF OCT 25 2026&nbsp;&nbsp;●&nbsp;&nbsp;STRUCTURE: LONG VOLATILITY&nbsp;&nbsp;●&nbsp;&nbsp;EWZ SPOT 35.49&nbsp;&nbsp;●&nbsp;&nbsp;OCT 35 STRADDLE 7.91&nbsp;&nbsp;●&nbsp;&nbsp;NOV 35 STRADDLE 9.28&nbsp;&nbsp;●&nbsp;&nbsp;1ST ROUND OCT 4 2026&nbsp;&nbsp;●&nbsp;&nbsp;RUNOFF OCT 25 2026&nbsp;&nbsp;●&nbsp;&nbsp;STRUCTURE: LONG VOLATILITY&nbsp;&nbsp;●&nbsp;&nbsp;EWZ SPOT 35.49&nbsp;&nbsp;●&nbsp;&nbsp;OCT 35 STRADDLE 7.91&nbsp;&nbsp;●&nbsp;&nbsp;NOV 35 STRADDLE 9.28&nbsp;&nbsp;●&nbsp;&nbsp;1ST ROUND OCT 4 2026&nbsp;&nbsp;●&nbsp;&nbsp;RUNOFF OCT 25 2026&nbsp;&nbsp;●&nbsp;&nbsp;STRUCTURE: LONG VOLATILITY&nbsp;&nbsp;●&nbsp;&nbsp;
+  </span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-left">
+    <span class="nav-ticker">EWZ / LONG VOL</span>
+  </div>
+  <div class="nav-right">
+    <a href="#thesis" class="nav-link">Thesis</a>
+    <a href="#trades" class="nav-link">Trades</a>
+    <a href="#payoff" class="nav-link">P&amp;L</a>
+    <a href="#varsw" class="nav-link">Pro Desk</a>
+  </div>
+</nav>
+
+<!-- TRADE IDEAS INDEX -->
+<div class="ideas-strip">
+  <div class="ideas-label">Trade Ideas · Vol Desk · 2026</div>
+  <div class="ideas-grid">
+
+    <div class="idea-card active" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+      <div class="idea-card-top">
+        <span class="idea-ticker">EWZ</span>
+        <span class="idea-pill-new">New</span>
+      </div>
+      <div class="idea-name">Long Volatility · Brazil Elections</div>
+      <div class="idea-meta">iShares MSCI Brazil ETF · Oct / Nov 2026</div>
+      <div class="idea-structure">Long 35 Straddle · Vol Play</div>
+    </div>
+
+    <div class="idea-card dimmed" style="grid-column: span 2; display:flex; flex-direction:row; align-items:center; justify-content:center; gap:12px; padding: 22px 28px;">
+      <span style="font-size:18px; opacity:0.4;">···</span>
+      <span style="font-family:var(--serif); font-size:15px; font-weight:300; font-style:italic; color:var(--muted);">More ideas coming soon</span>
+      <span style="font-size:18px; opacity:0.4;">···</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left fade-up">
+    <div class="hero-label">Trade Idea · Brazil Elections 2026</div>
+    <h1 class="hero-title">Long<br/><em>Volatility</em><br/>Brazil</h1>
+    <p class="hero-sub">
+      Polls deadlocked. Headline risk off the charts. A two-round election calendar that could reprice every Brazilian asset overnight. We don't need to call direction. We just need chaos — and Brazil always delivers.
+    </p>
+  </div>
+  <div class="hero-meta fade-up" style="transition-delay:0.15s">
+    <div class="meta-block">
+      <div class="meta-label">Spot (EWZ)</div>
+      <div class="meta-value">$35.49</div>
+      <div class="meta-note">iShares MSCI Brazil ETF</div>
+    </div>
+    <div class="meta-block">
+      <div class="meta-label">1st Round</div>
+      <div class="meta-value">Oct 4, 2026</div>
+      <div class="meta-note">Justiça Eleitoral</div>
+    </div>
+    <div class="meta-block">
+      <div class="meta-label">Runoff</div>
+      <div class="meta-value">Oct 25, 2026</div>
+      <div class="meta-note">If no first-round majority</div>
+    </div>
+    <div class="meta-block">
+      <div class="meta-label">Structure</div>
+      <div class="meta-value">35 Straddle</div>
+      <div class="meta-note">Call + Put · same strike</div>
+    </div>
+  </div>
+</section>
+
+<!-- THESIS -->
+<section class="section fade-up" id="thesis">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <h2 class="section-title">The Thesis</h2>
+  </div>
+  <div class="thesis-grid">
+    <div class="thesis-cell">
+      <div class="thesis-icon">🗳</div>
+      <div class="thesis-head">Binary Event Catalyst</div>
+      <p class="thesis-body">Brazil's election is a genuine detonator. Lula vs. Flávio Bolsonaro in a razor-thin potential runoff keeps headlines explosive from July through end-October. Sustained political tension means implied vol stays elevated far longer than a single-day event spike.</p>
+    </div>
+    <div class="thesis-cell">
+      <div class="thesis-icon">↕</div>
+      <div class="thesis-head">Zero Directional Bias</div>
+      <p class="thesis-body">A straddle profits massively from movement in either direction. A right-wing win could ignite EWZ on reform euphoria. A left-wing result could send it into freefall. We are not guessing the outcome. We are betting on the storm itself.</p>
+    </div>
+    <div class="thesis-cell">
+      <div class="thesis-icon">📈</div>
+      <div class="thesis-head">Two Paths to Profit</div>
+      <p class="thesis-body">Hold through the explosion if EWZ makes its move, or sell the straddle pre-vote when the market bids implied vol into the stratosphere. The IV ramp trade has historically delivered sharper risk-adjusted returns than waiting for realised carnage.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRADE CARDS -->
+<section class="section fade-up" id="trades">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <h2 class="section-title">The Trades</h2>
+  </div>
+  <div class="cards-grid">
+
+    <!-- OCT -->
+    <div class="trade-card">
+      <div class="card-accent"></div>
+      <div class="card-tag">★ OCT EXPIRY — ELECTION ONLY</div>
+      <div class="card-title">35 Straddle<br/>October 2026</div>
+      <div class="card-subtitle">The surgical strike. One round. Pure shock exposure — cheapest way in.</div>
+      <hr class="card-divider"/>
+      <table class="card-table">
+        <tr><td>Structure</td><td>Long 35 Straddle</td></tr>
+        <tr><td>35 Call</td><td>4.56</td></tr>
+        <tr><td>35 Put</td><td>3.35</td></tr>
+        <tr><td>Total Premium / share</td><td><strong>$7.91</strong></td></tr>
+        <tr><td>Cost per contract (100sh)</td><td><strong>$791</strong></td></tr>
+        <tr><td>Max loss</td><td><strong>$791</strong></td></tr>
+        <tr><td>Move hurdle vs spot</td><td><strong>22.3%</strong></td></tr>
+      </table>
+      <div class="card-be">
+        <div class="be-block">
+          <div class="be-label">Lower BE</div>
+          <div class="be-value down">$27.09</div>
+        </div>
+        <div class="be-block" style="background:var(--lime-dim); border-color:var(--lime);">
+          <div class="be-label">Strike</div>
+          <div class="be-value">$35.00</div>
+        </div>
+        <div class="be-block">
+          <div class="be-label">Upper BE</div>
+          <div class="be-value up">$42.91</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- NOV -->
+    <div class="trade-card">
+      <div class="card-tag secondary">NOV EXPIRY — ELECTION + RUNOFF</div>
+      <div class="card-title">35 Straddle<br/>November 2026</div>
+      <div class="card-subtitle">Maximum exposure. Covers both rounds and the political aftershock.</div>
+      <hr class="card-divider"/>
+      <table class="card-table">
+        <tr><td>Structure</td><td>Long 35 Straddle</td></tr>
+        <tr><td>35 Call</td><td>6.02</td></tr>
+        <tr><td>35 Put</td><td>3.26</td></tr>
+        <tr><td>Total Premium / share</td><td><strong>$9.28</strong></td></tr>
+        <tr><td>Cost per contract (100sh)</td><td><strong>$928</strong></td></tr>
+        <tr><td>Max loss</td><td><strong>$928</strong></td></tr>
+        <tr><td>Move hurdle vs spot</td><td><strong>26.2%</strong></td></tr>
+      </table>
+      <div class="card-be">
+        <div class="be-block">
+          <div class="be-label">Lower BE</div>
+          <div class="be-value down">$25.72</div>
+        </div>
+        <div class="be-block" style="background:var(--bg);">
+          <div class="be-label">Strike</div>
+          <div class="be-value">$35.00</div>
+        </div>
+        <div class="be-block">
+          <div class="be-label">Upper BE</div>
+          <div class="be-value up">$44.28</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <div style="margin-top:24px; overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>OCT — Election Only</th>
+          <th>NOV — Elec + Runoff</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Total Premium</td><td>$7.91</td><td>$9.28</td></tr>
+        <tr><td>Cost per Contract</td><td>$791</td><td>$928</td></tr>
+        <tr><td>Move Hurdle vs Spot</td><td>22.3%</td><td>26.2%</td></tr>
+        <tr><td>Breakevens</td><td>27.09 / 42.91</td><td>25.72 / 44.28</td></tr>
+        <tr><td>Why choose</td><td>Cheaper, pure event</td><td>More time for runoff / aftershock</td></tr>
+        <tr><td>Main risk</td><td>Post-event vol crush</td><td>Higher cost / more theta bleed</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PAYOFF CHART -->
+<section class="section fade-up" id="payoff">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <h2 class="section-title">P&amp;L at Expiry</h2>
+  </div>
+  <div class="chart-wrapper">
+    <div class="chart-controls">
+      <button class="chart-btn active" id="btn-both" onclick="setView('both')">Both</button>
+      <button class="chart-btn" id="btn-oct"  onclick="setView('oct')">Oct Only</button>
+      <button class="chart-btn" id="btn-nov"  onclick="setView('nov')">Nov Only</button>
+    </div>
+    <canvas id="payoffChart" height="320"></canvas>
+    <div class="chart-legend">
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#C9FA46;"></div>
+        Oct Straddle (7.91 premium)
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#444440;border-top:2px dashed #444440;"></div>
+        Nov Straddle (9.28 premium)
+      </div>
+      <div class="legend-item">
+        <div class="legend-dot" style="background:#FF4545;"></div>
+        Break-even levels
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VARIANCE SWAP -->
+<section class="section fade-up" id="varsw">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <h2 class="section-title">The Perfect Instrument</h2>
+  </div>
+  <div class="varsw-wrap">
+    <div class="varsw-badge">
+      <span class="varsw-badge-icon">🏦</span>
+      <span>Institutional Only · OTC</span>
+    </div>
+    <div class="varsw-body">
+      <div class="varsw-left">
+        <p class="varsw-headline">For those who want pure volatility — with no noise attached — the ideal instrument is not a straddle. It is a <em>Variance Swap.</em></p>
+        <p class="varsw-desc">A straddle is accessible and liquid. But it comes with baggage: delta drift, skew exposure, bid-ask friction across two legs. A variance swap strips all of that away. You trade realised variance directly against a fixed strike. Direction is completely irrelevant. If Brazil explodes in either direction — or just thrashes incessantly through the election window — the payoff compounds convexly in your favour. No hedging. No rolling. No strikes to manage. Just volatility, in its purest form.</p>
+        <p class="varsw-desc">The convexity is the killer feature: gains accelerate as vol surges, while losses are cushioned if vol disappoints. It is the most efficient way to be long the chaos of a contested South American election.</p>
+      </div>
+      <div class="varsw-right">
+        <div class="varsw-formula-card">
+          <div class="varsw-formula-label">Payoff at Expiry</div>
+          <div class="varsw-formula">
+            Notional <span class="varsw-times">×</span> (σ²<sub>realised</sub> <span class="varsw-minus">−</span> K²<sub>strike</sub>)
+          </div>
+          <div class="varsw-formula-sub">Long side profits when realised vol exceeds the strike</div>
+        </div>
+        <div class="varsw-pills">
+          <div class="varsw-pill">Pure Vol Exposure</div>
+          <div class="varsw-pill">Convex Payoff</div>
+          <div class="varsw-pill">No Delta Drift</div>
+          <div class="varsw-pill">No Options Legs</div>
+          <div class="varsw-pill varsw-pill-warn">OTC · ISDA Required</div>
+          <div class="varsw-pill varsw-pill-warn">Institutional Access Only</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PITCH -->
+<div class="pitch-block fade-up">
+  <div class="pitch-tag">20-sec pitch</div>
+  <blockquote class="pitch-quote">
+    "I am long EWZ volatility into Brazil's October 4 election. Buying a <strong>35 straddle</strong> — direction is irrelevant, I just need the market to move. The October expiry is the sharper <strong>election shock</strong> play; November buys the full runoff window and the political aftershock. I monetise via an <strong>IV ramp</strong> into the vote, or I ride the explosion."
+  </blockquote>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-note">
+    This material is for informational purposes only and does not constitute investment advice. Options trading involves substantial risk. All prices are indicative midpoints — always trade on live bid/ask. Variance swaps are OTC instruments available to institutional investors under ISDA agreements only. Past correlation of political events to asset moves is not indicative of future results.
+  </p>
+  <span class="footer-date">EWZ · Mar 2026</span>
+</footer>
+
+<script>
+  // ─── SCROLL ANIMATIONS ────────────────────────
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // ─── PAYOFF CHART ─────────────────────────────
+  const STRIKE    = 35;
+  const PREM_OCT  = 7.91;
+  const PREM_NOV  = 9.28;
+  const BE_OCT_L  = 27.09;
+  const BE_OCT_U  = 42.91;
+  const BE_NOV_L  = 25.72;
+  const BE_NOV_U  = 44.28;
+
+  let currentView = 'both';
+
+  function straddlePnL(spot, strike, premium) {
+    return Math.abs(spot - strike) - premium;
+  }
+
+  function setView(v) {
+    currentView = v;
+    document.querySelectorAll('.chart-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('btn-' + v).classList.add('active');
+    drawChart();
+  }
+
+  function drawChart() {
+    const canvas = document.getElementById('payoffChart');
+    const dpr = window.devicePixelRatio || 1;
+    const W = canvas.clientWidth;
+    const H = 320;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    const ctx = canvas.getContext('2d');
+    ctx.scale(dpr, dpr);
+
+    const PAD = { top: 24, right: 24, bottom: 48, left: 56 };
+    const cW = W - PAD.left - PAD.right;
+    const cH = H - PAD.top  - PAD.bottom;
+
+    ctx.clearRect(0, 0, W, H);
+
+    // price range
+    const priceMin = 15;
+    const priceMax = 55;
+    const pnlMin   = -12;
+    const pnlMax   = 20;
+
+    function px(price) { return PAD.left + (price - priceMin) / (priceMax - priceMin) * cW; }
+    function py(pnl)   { return PAD.top  + (1 - (pnl - pnlMin) / (pnlMax - pnlMin)) * cH; }
+
+    // ── grid lines ──
+    ctx.strokeStyle = '#E0E0D8';
+    ctx.lineWidth   = 1;
+    ctx.setLineDash([4, 4]);
+
+    // horizontal grid
+    for (let p = -10; p <= 20; p += 5) {
+      ctx.beginPath();
+      ctx.moveTo(PAD.left, py(p));
+      ctx.lineTo(PAD.left + cW, py(p));
+      ctx.stroke();
+      ctx.fillStyle = '#AEAEAD';
+      ctx.font = `400 10px 'IBM Plex Mono', monospace`;
+      ctx.textAlign = 'right';
+      ctx.fillText((p >= 0 ? '+' : '') + p, PAD.left - 8, py(p) + 4);
+    }
+
+    // vertical grid
+    for (let s = 20; s <= 50; s += 5) {
+      ctx.beginPath();
+      ctx.moveTo(px(s), PAD.top);
+      ctx.lineTo(px(s), PAD.top + cH);
+      ctx.stroke();
+      ctx.fillStyle = '#AEAEAD';
+      ctx.textAlign = 'center';
+      ctx.fillText('$' + s, px(s), PAD.top + cH + 20);
+    }
+
+    ctx.setLineDash([]);
+
+    // ── zero line ──
+    ctx.strokeStyle = '#111110';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(PAD.left, py(0));
+    ctx.lineTo(PAD.left + cW, py(0));
+    ctx.stroke();
+
+    // ── spot line ──
+    ctx.strokeStyle = '#AEAEAD';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 3]);
+    ctx.beginPath();
+    ctx.moveTo(px(35.49), PAD.top);
+    ctx.lineTo(px(35.49), PAD.top + cH);
+    ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = '#AEAEAD';
+    ctx.font = `400 9px 'IBM Plex Mono', monospace`;
+    ctx.textAlign = 'center';
+    ctx.fillText('SPOT 35.49', px(35.49), PAD.top - 6);
+
+    // ── helper: draw straddle line ──
+    function drawStraddle(premium, color, dashed) {
+      const prices = [];
+      for (let s = priceMin; s <= priceMax; s += 0.1) prices.push(s);
+
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2.5;
+      if (dashed) ctx.setLineDash([8, 5]);
+      else ctx.setLineDash([]);
+
+      ctx.beginPath();
+      prices.forEach((s, i) => {
+        const pnl = straddlePnL(s, STRIKE, premium);
+        if (i === 0) ctx.moveTo(px(s), py(pnl));
+        else ctx.lineTo(px(s), py(pnl));
+      });
+      ctx.stroke();
+      ctx.setLineDash([]);
+    }
+
+    // ── shaded fill ──
+    function fillStraddle(premium, color) {
+      const prices = [];
+      for (let s = priceMin; s <= priceMax; s += 0.1) prices.push(s);
+
+      ctx.beginPath();
+      prices.forEach((s, i) => {
+        const pnl = Math.max(0, straddlePnL(s, STRIKE, premium));
+        if (i === 0) ctx.moveTo(px(s), py(pnl));
+        else ctx.lineTo(px(s), py(pnl));
+      });
+      ctx.lineTo(px(priceMax), py(0));
+      ctx.lineTo(px(priceMin), py(0));
+      ctx.closePath();
+      ctx.fillStyle = color;
+      ctx.fill();
+    }
+
+    if (currentView === 'both' || currentView === 'oct') {
+      fillStraddle(PREM_OCT, 'rgba(201,250,70,0.18)');
+    }
+
+    if (currentView === 'both' || currentView === 'oct') {
+      drawStraddle(PREM_OCT, '#C9FA46', false);
+    }
+
+    if (currentView === 'both' || currentView === 'nov') {
+      drawStraddle(PREM_NOV, '#444440', true);
+    }
+
+    // ── breakeven markers ──
+    function drawBE(price, label, side) {
+      ctx.strokeStyle = '#FF4545';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([3, 3]);
+      ctx.beginPath();
+      ctx.moveTo(px(price), PAD.top);
+      ctx.lineTo(px(price), PAD.top + cH);
+      ctx.stroke();
+      ctx.setLineDash([]);
+
+      ctx.fillStyle = '#FF4545';
+      ctx.font = `500 9px 'IBM Plex Mono', monospace`;
+      ctx.textAlign = side === 'left' ? 'left' : 'right';
+      ctx.fillText(label, px(price) + (side === 'left' ? 4 : -4), PAD.top + 14);
+    }
+
+    if (currentView === 'both' || currentView === 'oct') {
+      drawBE(BE_OCT_L, '27.09', 'right');
+      drawBE(BE_OCT_U, '42.91', 'left');
+    }
+    if (currentView === 'nov') {
+      drawBE(BE_NOV_L, '25.72', 'right');
+      drawBE(BE_NOV_U, '44.28', 'left');
+    }
+
+    // ── axis labels ──
+    ctx.fillStyle = '#111110';
+    ctx.font = `400 10px 'IBM Plex Mono', monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillText('P&L ($)', 4, PAD.top + 12);
+    ctx.textAlign = 'right';
+    ctx.fillText('EWZ Price →', W - 6, PAD.top + cH + 40);
+  }
+
+  window.addEventListener('resize', drawChart);
+  window.addEventListener('load', () => {
+    // small delay to let layout settle
+    setTimeout(drawChart, 80);
+  });
+</script>
+</body>
+</html>
