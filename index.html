@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lisandro F. · Investments</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- ─── NAV ─── -->
+  <nav>
+    <a href="#home" class="nav-name">Lisandro F.</a>
+    <ul class="nav-links">
+      <li><a href="#ideas">Trade Ideas</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+  </nav>
+
+  <!-- ─── HOME ─── -->
+  <section id="home">
+    <div class="hero-eyebrow">Currently in London &nbsp;·&nbsp; MiF, LBS</div>
+    <div class="hero-headline">Hello.</div>
+    <p class="hero-sub">
+      MiF student at London Business School.<br>
+      Interested in public markets and technology.
+    </p>
+    <div class="hero-line"></div>
+    <div class="hero-bottom">
+      <span class="hero-coord">51°30'N · 0°7'W</span>
+      <div class="scroll-cue">
+        <div class="scroll-bar"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── MARQUEE ─── -->
+  <div class="marquee-wrap" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Trade Ideas</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Public Equities</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">EM</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Volatility</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">London Business School</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Long / Short</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Technology</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">LatAm</span><span class="marquee-sep">·</span>
+      <!-- duplicate for seamless loop -->
+      <span class="marquee-item">Trade Ideas</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Public Equities</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">EM</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Volatility</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">London Business School</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Long / Short</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">Technology</span><span class="marquee-sep">·</span>
+      <span class="marquee-item">LatAm</span><span class="marquee-sep">·</span>
+    </div>
+  </div>
+
+  <!-- ─── TRADE IDEAS ─── -->
+  <section id="ideas">
+    <div class="section-header">
+      <h2 class="section-title reveal">Trade<br>Ideas</h2>
+      <p class="section-meta reveal">
+        Updated as conviction evolves.<br>
+        Not financial advice.
+      </p>
+    </div>
+    <!-- Cards injected by App.mountTrades() -->
+    <div class="ideas-grid" id="ideas-grid"></div>
+  </section>
+
+  <!-- ─── ABOUT ─── -->
+  <section id="about">
+    <div class="about-grid">
+
+      <div class="about-left">
+        <h2 class="section-title about-title reveal">About<br>Me</h2>
+
+        <p class="about-para reveal">
+          I am a <strong>Masters in Finance student at London Business School</strong>, focused on public markets.
+          Before LBS, I spent five years across capital markets and fintech in Latin America —
+          the kind of markets where inflation is double-digit, FX controls are real,
+          and political risk is not a footnote.
+        </p>
+
+        <p class="about-para reveal">
+          At <strong>MercadoLibre</strong>, the largest technology company in LatAm by market cap, I ran investment product,
+          supporting the migration of a $4.2B in-house fund and the launch of Mercado Pago Asset Management.
+          Before that, I was a founding member of the trading desk at <strong>Inviu</strong>, a $2B+ AUM investment platform,
+          where I built the infrastructure from scratch.
+        </p>
+
+        <p class="about-para reveal">
+          The part that makes me a bit different: I sit at the intersection of markets knowledge
+          and product execution. I have built trading desks, integrated live market data into client platforms,
+          and written SQL to answer questions that Excel was too slow for.
+          My interest is in businesses that are misunderstood, not just undervalued.
+        </p>
+
+        <p class="about-para reveal">
+          Outside markets, I am usually reading on something I do not understand yet.
+        </p>
+      </div>
+
+      <div class="about-right reveal">
+        <div class="tags-wrap">
+          <span class="tag">Public Markets</span>
+          <span class="tag">EM</span>
+          <span class="tag">LatAm</span>
+          <span class="tag">LBS · MiF</span>
+          <span class="tag">Fintech</span>
+          <span class="tag">Volatility</span>
+          <span class="tag">TMT</span>
+          <span class="tag">Python · SQL</span>
+          <span class="tag">Buenos Aires</span>
+          <span class="tag">London</span>
+        </div>
+        <div class="contact-heading">Get in touch.</div>
+        <div>
+          <a href="https://www.linkedin.com/in/lisandrof/" target="_blank" class="contact-link">↗ LinkedIn</a>
+          <a href="mailto:lflorentin.mifft2026@london.edu" class="contact-link">↗ Email</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <span class="footer-txt">Licha · 2025</span>
+    <span class="footer-txt">Ideas, not advice.</span>
+  </footer>
+
+  <!-- ─── SCRIPTS ─── -->
+  <!-- Data model first, then components, then controller -->
+  <script src="js/data/trades.js"></script>
+  <script src="js/components/tradeCard.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
