@@ -13,7 +13,7 @@ const TRADES = [
     name: "iShares MSCI Brazil",
     sector: "EM Equities · Brazil",
     updated: "Mar 2025",
-    preview: "A vol play on Brazil's 2026 presidential election. Not calling up or down, just that EWZ moves more than the market currently prices in. Max loss is the premium paid.",
+    preview: "A vol play on Brazil's 2026 presidential election. Not calling up or down, just that EWZ moves more than the market currently prices in.",
     url: "ideas/ewz-straddle-2026.html"
   }
 ];
