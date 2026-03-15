@@ -15,7 +15,7 @@ const TradeCard = {
     const dirClass = this.directionClass(trade.direction);
 
     return `
-      <article class="idea-card reveal" id="card-${trade.id}" href="${trade.url}">
+      <article class="idea-card reveal" id="card-${trade.id}">
         <div class="card-top">
           <span class="card-ticker">${trade.ticker}</span>
           <span class="card-dir ${dirClass}">${trade.direction}</span>
