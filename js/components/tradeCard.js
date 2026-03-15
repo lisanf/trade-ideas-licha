@@ -29,7 +29,7 @@ const TradeCard = {
             <span class="meta-val">${trade.updated}</span>
           </div>
         </div>
-        <a class="expand-btn" href="${trade.url}">
+        <a class="expand-btn idea-card-link" href="${trade.url}">
           <div class="exp-icon">&#x2192;</div>
           <span>Read thesis</span>
         </a>
