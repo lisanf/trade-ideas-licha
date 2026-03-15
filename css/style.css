@@ -292,6 +292,13 @@ nav {
 .idea-card:hover                   { background: var(--cream); box-shadow: 0 8px 40px rgba(26,25,23,0.05); }
 .idea-card:hover::before           { background: var(--orange); }
 
+/* Stretched link — makes the whole card clickable */
+.idea-card-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
 .card-top {
   display: flex;
   justify-content: space-between;
