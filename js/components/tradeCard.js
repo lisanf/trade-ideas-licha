@@ -7,7 +7,13 @@
 const TradeCard = {
 
   directionClass(dir) {
-    const map = { Long: "long", Short: "short", Straddle: "vol" };
+    const map = {
+      "Long": "long",
+      "Short": "short",
+      "Straddle": "vol",
+      "Long Volatility": "vol",
+      "Distressed": "distressed"
+    };
     return map[dir] || "neutral";
   },
 
