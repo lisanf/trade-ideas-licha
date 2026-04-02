@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LatAm Distress · Lisandro F.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garant:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Instrument+Sans:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/idea.css">
+  <style>
+    /* ── Page-specific overrides ── */
+    :root {
+      --rust:     #7B3F2A;
+      --rust-dim: rgba(123,63,42,0.09);
+    }
+
+    .tag-distressed {
+      color: var(--rust);
+      background: var(--rust-dim);
+      border: 1px solid rgba(123,63,42,0.22);
+    }
+
+    /* ── Split header for two pitches ── */
+    .pitch-nav {
+      display: flex;
+      gap: 2px;
+      margin: 48px 0 0;
+    }
+
+    .pitch-tab {
+      flex: 1;
+      padding: 16px 22px;
+      border: 1px solid var(--border);
+      background: var(--white);
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--f-mono);
+      font-size: 10px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      border-bottom: 3px solid transparent;
+    }
+
+    .pitch-tab:hover { color: var(--ink); }
+
+    .pitch-tab.active {
+      color: var(--ink);
+      border-bottom-color: var(--orange);
+      background: var(--cream);
+    }
+
+    .pitch-tab .tab-name {
+      display: block;
+      font-family: var(--f-display);
+      font-size: 18px;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      color: var(--ink);
+      margin-top: 6px;
+    }
+
+    .pitch-panel { display: none; }
+    .pitch-panel.active { display: block; }
+
+    /* ── Capital structure ladder ── */
+    .cap-ladder {
+      margin: 22px 0;
+      border: 1px solid var(--border);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .cap-rung {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 14px 22px;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    .cap-rung:last-child { border-bottom: none; }
+    .cap-rung.cap-highlight { background: rgba(216,104,42,0.05); }
+    .cap-rung.cap-highlight .cap-label { color: var(--orange); }
+
+    .cap-rank {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      width: 60px;
+      flex-shrink: 0;
+    }
+
+    .cap-bar {
+      flex: 1;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      position: relative;
+    }
+
+    .cap-fill {
+      height: 100%;
+      border-radius: 2px;
+      background: var(--muted);
+      opacity: 0.35;
+    }
+    .cap-rung.cap-highlight .cap-fill { background: var(--orange); opacity: 0.7; }
+
+    .cap-label {
+      font-family: var(--f-mono);
+      font-size: 10.5px;
+      letter-spacing: 0.06em;
+      color: var(--ink);
+      min-width: 180px;
+      text-align: right;
+    }
+
+    /* ── Proposal table (Braskem) ── */
+    .proposal-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      margin-top: 22px;
+    }
+
+    .proposal-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 24px 22px;
+    }
+
+    .proposal-card.p-highlight {
+      border-top: 3px solid var(--orange);
+    }
+
+    .proposal-tag {
+      font-family: var(--f-mono);
+      font-size: 8.5px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+
+    .proposal-title {
+      font-family: var(--f-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+
+    .proposal-body {
+      font-size: 12.5px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    .proposal-note {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-top: 12px;
+    }
+
+    /* ── Catalyst map ── */
+    .catalyst-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      margin-top: 22px;
+    }
+
+    .catalyst-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      padding: 22px 22px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .catalyst-icon {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      opacity: 0.5;
+      margin-top: 3px;
+      flex-shrink: 0;
+      width: 28px;
+    }
+
+    .catalyst-title {
+      font-family: var(--f-body);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .catalyst-body {
+      font-size: 12px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ── Scenario ladder (Raizen) ── */
+    .scenario-stack {
+      margin-top: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .scenario-row {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      border: 1px solid var(--border);
+      background: var(--white);
+      overflow: hidden;
+    }
+
+    .scenario-case {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      transform: rotate(180deg);
+      padding: 16px 12px;
+      display: flex;
+      align-items: center;
+      color: var(--white);
+      min-width: 38px;
+    }
+
+    .scenario-case.bull  { background: var(--teal); }
+    .scenario-case.base  { background: var(--blue); }
+    .scenario-case.bear  { background: var(--rust); }
+
+    .scenario-content {
+      padding: 16px 22px;
+      flex: 1;
+    }
+
+    .scenario-headline {
+      font-family: var(--f-display);
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--ink);
+      margin-bottom: 5px;
+    }
+
+    .scenario-detail {
+      font-size: 12.5px;
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--muted);
+    }
+
+    /* ── Punchline box ── */
+    .punchline-box {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 36px 36px;
+      margin-top: 0;
+    }
+
+    .punchline-label {
+      font-family: var(--f-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 18px;
+    }
+
+    .punchline-text {
+      font-family: var(--f-display);
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: 300;
+      font-style: italic;
+      line-height: 1.55;
+      color: var(--cream);
+    }
+
+    @media (max-width: 680px) {
+      .proposal-grid { grid-template-columns: 1fr; }
+      .catalyst-grid { grid-template-columns: 1fr; }
+      .pitch-tab .tab-name { font-size: 15px; }
+    }
+  </style>
+</head>
+<body class="idea-page">
+
+  <!-- NAV -->
+  <nav>
+    <a href="../index.html" class="nav-name">Lisandro F.</a>
+    <ul class="nav-links">
+      <li><a href="../index.html#ideas">Trade Ideas</a></li>
+      <li><a href="../index.html#about">About</a></li>
+    </ul>
+  </nav>
+
+  <main class="idea-main">
+
+    <!-- BACK -->
+    <a href="../index.html#ideas" class="idea-back">
+      <span class="back-arrow">&#x2190;</span>
+      Trade Ideas
+    </a>
+
+    <!-- HEADER -->
+    <header class="idea-header">
+      <div class="idea-meta-row">
+        <span class="card-ticker">BAKIDE · RAIZ4</span>
+        <span class="card-dir distressed tag-distressed">Distressed</span>
+        <span class="card-dir neutral idea-status">Active</span>
+      </div>
+      <h1 class="idea-title">LatAm<br>Distress</h1>
+      <div class="idea-sub-row">
+        <span class="card-sector">LatAm Credit · HY · Restructuring</span>
+        <span class="idea-updated">
+          <span class="meta-lbl">Updated</span>
+          <span class="meta-val">Apr 2025</span>
+        </span>
+      </div>
+    </header>
+
+    <!-- ONE-LINE THESIS -->
+    <section class="idea-section idea-summary">
+      <p class="idea-lead">
+        Two restructurings, one principle: own the right seat in the capital structure
+        and treat equity as optionality. Don't fight the waterfall — sit above it.
+      </p>
+    </section>
+
+    <div class="idea-divider"></div>
+
+    <!-- CONTEXT -->
+    <section class="idea-section">
+      <div class="ex-label">The Setup</div>
+      <p class="idea-body">
+        Distressed investing in LatAm is not about picking the best company.
+        It is about picking the best position within a company that is already in trouble.
+        The market tends to price the stress at the entity level — but the real question
+        is always more specific: <em>where do you sit in the structure if things get messy?</em>
+      </p>
+      <p class="idea-body">
+        These are two separate stories with different mechanics, but they share the same
+        underlying logic. Both are cases where the bond is the more interesting seat
+        and equity carries risks that are easy to underestimate from the outside.
+      </p>
+    </section>
+
+    <!-- TABS -->
+    <div class="pitch-nav">
+      <button class="pitch-tab active" onclick="switchPitch('braskem', this)">
+        <span>Pitch 01</span>
+        <span class="tab-name">Braskem Idesa</span>
+      </button>
+      <button class="pitch-tab" onclick="switchPitch('raizen', this)">
+        <span>Pitch 02</span>
+        <span class="tab-name">Raizen</span>
+      </button>
+    </div>
+
+    <!-- ══════════════════════════════════════
+         PITCH 01 — BRASKEM IDESA
+    ══════════════════════════════════════ -->
+    <div id="panel-braskem" class="pitch-panel active">
+
+      <div class="idea-divider"></div>
+
+      <section class="idea-section">
+        <div class="ex-label">What It Is</div>
+        <p class="idea-body">
+          Braskem is one of the largest petrochemical companies in the Americas.
+          The stress is not at the parent — it is at <strong>Braskem Idesa</strong>, the Mexico subsidiary,
+          where two series of senior secured notes are now in active restructuring talks:
+          the <strong>2029s (7.45%)</strong> and the <strong>2032s (6.99%)</strong>.
+        </p>
+        <p class="idea-body">
+          In February 2026, Braskem Idesa missed the coupon on the 2032s.
+          That confirmed what was already clear from the negotiation timeline:
+          this is a workout, not a watch list. The company has put a formal proposal on the table.
+        </p>
+      </section>
+
+      <!-- Capital structure -->
+      <section class="idea-section">
+        <div class="ex-label">Where to Sit</div>
+        <p class="idea-body" style="margin-bottom: 20px;">
+          Both series are senior secured, which is the important part.
+          The proposal treats them together — so owning a basket of both avoids
+          making a false precision call on which one "wins."
+        </p>
+
+        <div class="cap-ladder">
+          <div class="cap-rung">
+            <span class="cap-rank">Senior</span>
+            <div class="cap-bar"><div class="cap-fill" style="width:90%"></div></div>
+            <span class="cap-label">Operating creditors / trade</span>
+          </div>
+          <div class="cap-rung cap-highlight">
+            <span class="cap-rank">Secured</span>
+            <div class="cap-bar"><div class="cap-fill" style="width:75%"></div></div>
+            <span class="cap-label">BAKIDE 2029 + 2032 ← preferred seat</span>
+          </div>
+          <div class="cap-rung">
+            <span class="cap-rank">Sub</span>
+            <div class="cap-bar"><div class="cap-fill" style="width:40%"></div></div>
+            <span class="cap-label">Unsecured / subordinated</span>
+          </div>
+          <div class="cap-rung">
+            <span class="cap-rank">Equity</span>
+            <div class="cap-bar"><div class="cap-fill" style="width:18%"></div></div>
+            <span class="cap-label">Braskem equity — optionality only</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- The proposal -->
+      <section class="idea-section">
+        <div class="ex-label">The Company Proposal</div>
+        <p class="idea-body" style="margin-bottom: 20px;">
+          Three paths on the table. Each one tells you something about the recovery range.
+        </p>
+        <div class="proposal-grid">
+          <div class="proposal-card p-highlight">
+            <div class="proposal-tag">Option A</div>
+            <div class="proposal-title">Exchange</div>
+            <p class="proposal-body">New 7-year senior secured notes at 100% of principal, same collateral, 6.95% coupon. No interest accrues for the first five years.</p>
+            <div class="proposal-note">Par recovery, long wait</div>
+          </div>
+          <div class="proposal-card">
+            <div class="proposal-tag">Option B</div>
+            <div class="proposal-title">Cash-out</div>
+            <p class="proposal-body">55 cents on the dollar in cash. Clean exit, immediate liquidity. This number is the practical anchor for where distressed recovery sits.</p>
+            <div class="proposal-note">55¢ recovery floor</div>
+          </div>
+          <div class="proposal-card">
+            <div class="proposal-tag">Note</div>
+            <div class="proposal-title">Cash cap</div>
+            <p class="proposal-body">Maximum $400m available for cash-out elections. Not everyone can take cash — which matters for how the exchange vs. exit split shakes out.</p>
+            <div class="proposal-note">$400m ceiling</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Catalysts -->
+      <section class="idea-section">
+        <div class="ex-label">Catalyst Map</div>
+        <div class="catalyst-grid">
+          <div class="catalyst-card">
+            <span class="catalyst-icon">01</span>
+            <div>
+              <div class="catalyst-title">Restructuring progress</div>
+              <p class="catalyst-body">A clear path to the exchange or cash-out mechanics. Any headline that reduces timeline uncertainty is positive for bond prices.</p>
+            </div>
+          </div>
+          <div class="catalyst-card">
+            <span class="catalyst-icon">02</span>
+            <div>
+              <div class="catalyst-title">Governance reset</div>
+              <p class="catalyst-body">CADE approved the IG4–Novonor stake transfer with no conditions. Petrobras waived its buyout rights. Cleaner control structure improves capital discipline.</p>
+            </div>
+          </div>
+          <div class="catalyst-card">
+            <span class="catalyst-icon">03</span>
+            <div>
+              <div class="catalyst-title">Brazil pricing tailwind</div>
+              <p class="catalyst-body">Brazil imposed five-year anti-dumping duties on PE imports from the US and Canada — a modest but real domestic pricing support for the parent.</p>
+            </div>
+          </div>
+          <div class="catalyst-card">
+            <span class="catalyst-icon">04</span>
+            <div>
+              <div class="catalyst-title">Legal path clarity</div>
+              <p class="catalyst-body">Faster timeline, fewer surprises on the court or creditor side. The more procedural this becomes, the more the market can price it.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Risks -->
+      <section class="idea-section">
+        <div class="ex-label">What Breaks It</div>
+        <ul class="idea-list">
+          <li>The exchange turns coercive with weaker economics than the current proposal — the 55¢ anchor moves lower.</li>
+          <li>Mexico outcome bleeds into the Braskem parent more than the market currently expects.</li>
+          <li>Another year of weak petrochemical spreads delays cash recovery and extends the restructuring timeline.</li>
+          <li>Equity is a small optionality play, not a base case. Don't size it like one.</li>
+        </ul>
+      </section>
+
+      <!-- Implementation -->
+      <section class="idea-section">
+        <div class="ex-label">Preferred Expression</div>
+        <div class="gameplan-grid">
+          <div class="gameplan-item">
+            <span class="gameplan-marker marker-orange">A</span>
+            <div>
+              <div class="gameplan-title">50/50 BAKIDE basket</div>
+              <p class="gameplan-body">Equal weight in 2029s and 2032s. Since the proposal treats both together, this avoids false precision. If the deal is creditor-friendly, both benefit. If it gets coercive, both are impacted the same way.</p>
+            </div>
+          </div>
+          <div class="gameplan-item">
+            <span class="gameplan-marker marker-teal">B</span>
+            <div>
+              <div class="gameplan-title">40/60 tilt toward 2032</div>
+              <p class="gameplan-body">Higher beta with more upside if the deal is constructive. The 2029s are marginally more defensive. Tilt based on how much upside you want versus how much protection you need.</p>
+            </div>
+          </div>
+          <div class="gameplan-item">
+            <span class="gameplan-marker marker-blue">C</span>
+            <div>
+              <div class="gameplan-title">Equity as a kicker only</div>
+              <p class="gameplan-body">Braskem equity can work if Mexico is contained and governance genuinely improves. Keep sizing minimal and treat it as upside optionality on the base bond trade — not the other way around.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div><!-- /panel-braskem -->
+
+    <!-- ══════════════════════════════════════
+         PITCH 02 — RAIZEN
+    ══════════════════════════════════════ -->
+    <div id="panel-raizen" class="pitch-panel">
+
+      <div class="idea-divider"></div>
+
+      <section class="idea-section">
+        <div class="ex-label">What It Is</div>
+        <p class="idea-body">
+          Raizen is Brazil's largest sugar and ethanol producer, a Shell and Cosan joint venture
+          with about R$65bn in total debt now in an out-of-court restructuring process.
+          Unlike Braskem Idesa, this is not a classic distressed workout — it is a
+          <strong>sponsor-led recap</strong>: two large, motivated shareholders trying to
+          prevent a full court process by injecting capital and restructuring on their terms.
+        </p>
+        <p class="idea-body">
+          Fitch cut Raizen to 'C' after the restructuring announcement.
+          Creditors holding 47% of the unsecured debt have already signed on,
+          with 90 days to build broader support. The market knows this is serious.
+          What it doesn't know yet is how clean the resolution will be.
+        </p>
+      </section>
+
+      <!-- Scenario ladder -->
+      <section class="idea-section">
+        <div class="ex-label">Scenario Ladder</div>
+        <p class="idea-body" style="margin-bottom: 20px;">
+          This is a survival plus re-pricing trade. The bond is the cleaner seat in all three outcomes.
+        </p>
+        <div class="scenario-stack">
+          <div class="scenario-row">
+            <div class="scenario-case bull">Bull</div>
+            <div class="scenario-content">
+              <div class="scenario-headline">Consensual recap + sponsor injection</div>
+              <p class="scenario-detail">Shell and Cosan commit capital (R$3.5bn from Shell was discussed). Creditor support crosses the threshold. Bonds re-rate meaningfully from distressed levels. Equity survives but likely diluted — still a cleaner outcome than the alternatives.</p>
+            </div>
+          </div>
+          <div class="scenario-row">
+            <div class="scenario-case base">Base</div>
+            <div class="scenario-content">
+              <div class="scenario-headline">Slow process, headline-driven trading</div>
+              <p class="scenario-detail">The recap takes longer than expected. Bonds trade on creditor sign-on news and sponsor statement cadence. Equity stays volatile. The bond is still the better place to be — you get paid to wait.</p>
+            </div>
+          </div>
+          <div class="scenario-row">
+            <div class="scenario-case bear">Bear</div>
+            <div class="scenario-content">
+              <div class="scenario-headline">Heavy debt-to-equity conversion</div>
+              <p class="scenario-detail">Sponsors push for a conversion that dilutes existing shareholders heavily. Equity takes the first hit and the biggest hit. Bonds are still impaired but remain the cleaner seat — you recover more than you would holding equity.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Preferred instrument -->
+      <section class="idea-section">
+        <div class="ex-label">Preferred Instrument</div>
+        <p class="idea-body">
+          The <strong>Raizen 6.25% Notes due 2032</strong> (USD, issued 2025, with guarantees from the financing subsidiary).
+          Long enough to benefit from spread compression if the recap succeeds,
+          but not as exposed as very long-dated paper if the process drags.
+          It is the middle seat — which in a recap situation is usually the right one.
+        </p>
+        <p class="idea-body">
+          <strong>RAIZ4 (equity)</strong> is a high-volatility option on a friendly outcome.
+          It can survive the recap and still hurt current shareholders through dilution mechanics.
+          If you own equity here, own it small and own it knowing you might be right
+          on the company and still wrong on the trade.
+        </p>
+      </section>
+
+      <!-- Catalysts -->
+      <section class="idea-section">
+        <div class="ex-label">Catalyst Map</div>
+        <div class="catalyst-grid">
+          <div class="catalyst-card">
+            <span class="catalyst-icon">01</span>
+            <div>
+              <div class="catalyst-title">Creditor sign-on beyond 47%</div>
+              <p class="catalyst-body">The 90-day window to build broader support is the next visible milestone. Any move above 50–60% meaningfully raises the probability of an out-of-court resolution.</p>
+            </div>
+          </div>
+          <div class="catalyst-card">
+            <span class="catalyst-icon">02</span>
+            <div>
+              <div class="catalyst-title">Sponsor backstop confirmed</div>
+              <p class="catalyst-body">Shell and Cosan capital injection details and timing. The market needs to see actual commitments, not just discussions. Numbers and dates matter here.</p>
+            </div>
+          </div>
+          <div class="catalyst-card">
+            <span class="catalyst-icon">03</span>
+            <div>
+              <div class="catalyst-title">Asset sale proceeds</div>
+              <p class="catalyst-body">Real cash from asset sales, not just announcements. Raizen has assets that can be monetized — seeing actual proceeds improves the liquidity picture and reduces the equity conversion risk.</p>
+            </div>
+          </div>
+          <div class="catalyst-card">
+            <span class="catalyst-icon">04</span>
+            <div>
+              <div class="catalyst-title">Operating improvement</div>
+              <p class="catalyst-body">Evidence that cash generation is improving post-weather shock. This is more of a medium-term signal, but it matters for how the market prices the long-dated bonds.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Risks -->
+      <section class="idea-section">
+        <div class="ex-label">What Breaks It</div>
+        <ul class="idea-list">
+          <li>A harsher debt-for-equity swap than the market expects — equity holders absorb the worst of it, but bonds are not clean either.</li>
+          <li>Commodity downside or weak agro conditions extending the stress beyond what the recap covers.</li>
+          <li>Sponsor fatigue — if Shell or Cosan signal they are less committed than the market thinks, the entire framework re-prices.</li>
+          <li>Political noise slowing legal execution in a process that already needs speed to stay out-of-court.</li>
+        </ul>
+      </section>
+
+    </div><!-- /panel-raizen -->
+
+    <div class="idea-divider"></div>
+
+    <!-- PUNCHLINE -->
+    <div class="punchline-box">
+      <div class="punchline-label">The Bottom Line</div>
+      <p class="punchline-text">
+        Braskem Idesa is the cleaner distressed trade: own the secured bonds,
+        keep equity as a small kicker. Raizen is the cleaner debt trade:
+        the business may survive, but equity can survive in a way
+        that still hurts shareholders. In both cases, the bond is the better seat.
+      </p>
+    </div>
+
+    <br>
+    <p class="idea-disclaimer">Not financial advice. Personal notes on trades I find interesting. Data is indicative and dated. Do your own work.</p>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="footer-txt">Licha · 2025</span>
+    <span class="footer-txt">Ideas, not advice.</span>
+  </footer>
+
+  <script>
+    function switchPitch(id, btn) {
+      document.querySelectorAll('.pitch-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.pitch-tab').forEach(t => t.classList.remove('active'));
+      document.getElementById('panel-' + id).classList.add('active');
+      btn.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
