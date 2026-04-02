@@ -292,7 +292,7 @@ nav {
 .idea-card:hover                   { background: var(--cream); box-shadow: 0 8px 40px rgba(26,25,23,0.05); }
 .idea-card:hover::before           { background: var(--orange); }
 
-/* Stretched link — makes the whole card clickable */
+/* Stretched link — full card is clickable */
 .idea-card-link::after {
   content: '';
   position: absolute;
@@ -326,7 +326,8 @@ nav {
 .card-dir.long    { color: var(--blue);   background: var(--blue-dim);   border: 1px solid rgba(28,76,135,0.18); }
 .card-dir.short   { color: var(--orange); background: var(--orange-dim); border: 1px solid rgba(216,104,42,0.2); }
 .card-dir.vol     { color: var(--teal);   background: var(--teal-dim);   border: 1px solid rgba(42,122,110,0.2); }
-.card-dir.neutral { color: var(--muted);  background: transparent;       border: 1px solid var(--border); }
+.card-dir.neutral    { color: var(--muted);  background: transparent;       border: 1px solid var(--border); }
+.card-dir.distressed { color: #7B3F2A;        background: rgba(123,63,42,0.09); border: 1px solid rgba(123,63,42,0.22); }
 
 .card-name {
   font-family: var(--f-display);
